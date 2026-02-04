@@ -1,9 +1,0 @@
-name: "buy-anything"
-services:
-  postgres-dev:
-    container_name: "postgres-dev"
-    image: "postgres:14.17-alpine"
-    env_file:
-      - ../../.env.development
-    ports:
-      - "${POSTGRES_PORT}:5432"
