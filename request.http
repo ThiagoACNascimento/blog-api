@@ -1,0 +1,17 @@
+GET http://localhost:3000/
+Accept: application/json
+
+###
+
+GET http://localhost:3000/health
+Accept: application/json
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Thiago",
+  "email": "email@email.com",
+  "password": "password"
+}

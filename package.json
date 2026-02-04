@@ -1,0 +1,28 @@
+{
+  "name": "departmental-store",
+  "version": "1.0.0",
+  "description": "This will be our backend service form departmental stroe on line application",
+  "license": "MIT",
+  "author": "ThiagoNascimento",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "services:up": "npm run docker:compose -- up -d",
+    "services:down": " npm run docker:compose -- down",
+    "services:stop": " npm run docker:compose -- stop",
+    "docker:compose": "docker compose --env-file .env.development -f src/infrastructure/docker-compose.development.yaml",
+    "lint:prettier:check": "prettier --check .",
+    "lint:prettier:fix": "prettier --write ."
+  },
+  "dependencies": {
+    "fastify": "5.7.4",
+    "fastify-plugin": "5.1.0",
+    "pg": "8.18.0"
+  },
+  "devDependencies": {
+    "dotenv": "17.2.3",
+    "nodemon": "3.1.11",
+    "prettier": "3.8.1"
+  }
+}
