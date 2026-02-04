@@ -1,11 +1,8 @@
 import Fastify from "fastify";
-import userRoutes from "./routes/user.route.js";
 
 const fastify = Fastify({
   logger: true,
 });
-
-userRoutes(fastify);
 
 const start = async () => {
   try {
