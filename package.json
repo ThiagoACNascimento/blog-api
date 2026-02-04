@@ -1,17 +1,23 @@
 {
   "name": "departmental-store",
   "version": "1.0.0",
-  "description": "This will be our backend service form departmental stroe on line application",
+  "description": "This will be our backend service from departmental store on line application",
   "license": "MIT",
   "author": "ThiagoNascimento",
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "npm run services:up && npm run services:wait:postgres && npm run migrations:up && nodemon src/index.js",
+    "test": "npm run services:up && npm run services:wait:postgres && npm run migrations:up && concurrently -n fastify, jest --hide fastify -k -s command-jest \"node src/index.js \" \"node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --verbose\"",
+    "posttest": "npm run services:stop",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll --runInBand --verbose",
     "services:up": "npm run docker:compose -- up -d",
     "services:down": " npm run docker:compose -- down",
     "services:stop": " npm run docker:compose -- stop",
-    "docker:compose": "docker compose --env-file .env.development -f src/infrastructure/docker-compose.development.yaml",
+    "services:wait:postgres": "node src/database/scripts/wait-for-postgres.js",
+    "docker:compose": "docker compose --env-file .env.development -f src/database/docker-compose.development.yaml",
+    "migrations:up": "node-pg-migrate --migrations-dir src/database/migrations --envPath .env.development up",
+    "migrations:create": "node-pg-migrate --migrations-dir src/database/migrations create",
     "lint:prettier:check": "prettier --check .",
     "lint:prettier:fix": "prettier --write ."
   },
@@ -21,7 +27,11 @@
     "pg": "8.18.0"
   },
   "devDependencies": {
+    "concurrently": "9.2.1",
     "dotenv": "17.2.3",
+    "dotenv-expand": "12.0.3",
+    "jest": "30.2.0",
+    "node-pg-migrate": "8.0.4",
     "nodemon": "3.1.11",
     "prettier": "3.8.1"
   }
