@@ -1,9 +1,15 @@
+import dotenv from "dotenv";
+
+dotenv.config({
+  path: ".env.development",
+});
+
 export default {
   testEnvironment: "node",
-
+  moduleDirectories: ["node_modules", "<rootDir>"],
+  testTimeout: 6000,
+  transform: {},
   moduleNameMapper: {
-    "^(\\.{1,2}/.*)\\.js$": "$1",
+    "^src/(.*)$": "<rootDir>/src/$1",
   },
-
-  testTimeout: 10000,
 };
